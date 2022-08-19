@@ -1,0 +1,24 @@
+<template>
+  <require from="./cities"></require>
+  <require from="./person"></require>
+  <div class="ui container">
+    <div class="ui segment" style="margin:0">
+      <h1 class="ui center aligned header">${message}</h1>
+    </div>
+    <!-- <cities></cities> -->
+    <person></person>
+  </div>
+  <style>
+    .titulo {
+      color: red;
+      text-align: center;
+    }
+    .cap{
+      color: blue;
+      text-align: center;
+    }
+    .titulo, .cap{
+      font-weight: bold;
+    }
+  </style>
+</template>

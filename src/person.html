@@ -1,0 +1,58 @@
+<template>
+  <div if.bind="!isAdding" class="ui segment">
+    <div class="ui form">
+      <div class="ui icon input">
+        <input type="text" placeholder="Filtrar" value.bind="person.name">
+        <i class="search icon"></i>
+      </div>
+    </div>
+  </div>
+  
+  <div class="ui grid container">
+    <div if.bind="!isAdding" repeat.for="person of personService.people | filtroPerson:person.name" class="ui row segment" style="margin: 0; justify-content: space-evenly">
+      <div class="three wide column">${person.name | upperPerson}</div>
+      <div class="three wide column">${person.city}</div>
+      <div class="three wide column">${person.age}</div>
+      <div class="three wide column">${person.maritalStatus}</div>
+      <button class="ui icon button" click.delegate="removePerson(person)">
+        <i class="trash alternate outline icon"></i>
+      </button>
+    </div>
+    <div if.bind="!isAdding" class="ui row segment" style="margin: 0">
+      <div class="eigth wide center aligned column">
+        <button class="ui green button" click.delegate="addPerson()">
+          Adicionar
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div if.bind="isAdding" class="ui segment">
+    <div class="ui form" style="display:flex; flex-direction:column; align-items:center;">
+      <div class="six wide ${isError ? 'error' : ''} field">
+        <label>${isError && errorList.includes("name") ? "O campo Nome é obrigatório" : "Nome"}</label>
+        <input type="text" value.bind="person.name">
+      </div>
+      <div class="six wide ${isError ? 'error' : ''} field">
+        <label>${isError && errorList.includes("city") ? "O campo Cidade é obrigatório" : "Cidade"}</label>
+        <input type="text" value.bind="person.city">
+      </div>
+      <div class="six wide ${isError ? 'error' : ''} field">
+        <label>${isError && errorList.includes("age") ? "O campo Idade é obrigatório" : "Idade"}</label>
+        <input type="text" value.bind="person.age">
+      </div>
+      <div class="six wide ${isError ? 'error' : ''} field">
+        <label>${isError && errorList.includes("maritalStatus") ? "O campo Estado Civil é obrigatório" : "Estado Civil"}</label>
+        <input type="text" value.bind="person.maritalStatus">
+      </div>
+      <div class="eigth wide column">
+        <button class="ui yellow button" click.delegate="cancel()" style="color: green">
+          Cancelar
+        </button>
+        <button class="ui green button" click.delegate="confirmPerson()" style="color: yellow">
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

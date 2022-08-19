@@ -1,0 +1,32 @@
+<template>
+  <div class="ui segment" style="display:flex; justify-content:space-between">
+    <div class="ui row">
+      <div class="eigth wide center aligned column">
+        <button class="ui blue button" click.delegate="onlyCapitals()">${isVisible ? "Todos" : "Capitais"}</button>
+      </div>
+    </div>
+    <div class="ui form">
+      <div class="ui icon input">
+        <input type="text" placeholder="Filtrar" value.bind="city.name">
+        <i class="search icon"></i>
+      </div>
+    </div>
+  </div>
+  
+  <table class="ui celled striped table">
+    <thead>
+      <tr>
+        <th repeat.for="header of columnsHeader">
+          <p class="titulo">${header}</p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr show.bind="(city.isCapital && isVisible) || !isVisible" repeat.for="city of citiesService.cityList | filtroCity:city.name">
+        <td  class="center aligned ${city.isCapital ? 'cap' : ''}">${city.name | upperCity}</td>
+        <td class="center aligned">${city.state}</td>
+        <td class="center aligned">${city.population}</td>
+      </tr>
+    </tbody>
+  </table>
+</template>
