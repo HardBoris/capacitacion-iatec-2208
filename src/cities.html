@@ -7,7 +7,7 @@
     </div>
     <div class="ui form">
       <div class="ui icon input">
-        <input type="text" placeholder="Filtrar" value.bind="city.name">
+        <input type="text" placeholder="Filtrar" value.bind="name">
         <i class="search icon"></i>
       </div>
     </div>
@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr show.bind="(city.isCapital && isVisible) || !isVisible" repeat.for="city of citiesService.cityList | filtroCity:city.name">
+      <tr show.bind="(city.isCapital && isVisible) || !isVisible" repeat.for="city of citiesService.cityList | filtroCity:name">
         <td  class="center aligned ${city.isCapital ? 'cap' : ''}">${city.name | upperCity}</td>
         <td class="center aligned">${city.state}</td>
         <td class="center aligned">${city.population}</td>

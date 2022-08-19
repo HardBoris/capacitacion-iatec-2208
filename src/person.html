@@ -2,14 +2,14 @@
   <div if.bind="!isAdding" class="ui segment">
     <div class="ui form">
       <div class="ui icon input">
-        <input type="text" placeholder="Filtrar" value.bind="person.name">
+        <input type="text" placeholder="Filtrar" value.bind="name">
         <i class="search icon"></i>
       </div>
     </div>
   </div>
   
   <div class="ui grid container">
-    <div if.bind="!isAdding" repeat.for="person of personService.people | filtroPerson:person.name" class="ui row segment" style="margin: 0; justify-content: space-evenly">
+    <div if.bind="!isAdding" repeat.for="person of personService.people | filtroPerson:name" class="ui row segment" style="margin: 0; justify-content: space-evenly">
       <div class="three wide column">${person.name | upperPerson}</div>
       <div class="three wide column">${person.city}</div>
       <div class="three wide column">${person.age}</div>

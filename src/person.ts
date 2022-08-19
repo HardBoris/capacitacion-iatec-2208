@@ -1,7 +1,7 @@
 import { PersonService, PersonType } from './person-service';
-import {inject} from "aurelia-framework"
+import {autoinject} from "aurelia-framework"
 
-@inject(PersonService)
+@autoinject
 export class Person{
 
   constructor(private personService: PersonService){}
@@ -35,7 +35,6 @@ export class Person{
   removePerson(p){
     const i = this.personService.people.indexOf(p)
     this.personService.people.splice(i,1)
-    this.isAdding = false;
   }
 
   cancel(){
