@@ -1,18 +1,21 @@
 import { PersonService, PersonType } from './person-service';
-import {autoinject} from "aurelia-framework"
+import {autoinject, observable} from "aurelia-framework"
 
 @autoinject
 export class Person{
 
-  constructor(private personService: PersonService){}
+  constructor(private service: PersonService){}
 
   isAdding = false;
+  @observable({changeHandle: "fillText"}) search = null
   person;
   errorList;
   isError = false;
+  isEmpty = true;
 
   addPerson(){
     this.isAdding = true;
+    this.isError = false;
     this.person = {};
     this.errorList = []
   }
@@ -33,14 +36,30 @@ export class Person{
   }
 
   removePerson(p){
-    const i = this.personService.people.indexOf(p)
-    this.personService.people.splice(i,1)
+    const i = this.service.people.indexOf(p)
+    this.service.people.splice(i,1)
   }
 
   cancel(){
     this.person = {};
     this.errorList = [];
     this.isError = false;
+  }
+
+  voltar(){
+    this.isAdding = false;
+  }
+
+  searchChanged(newValue){
+    if (newValue) {
+      this.search = newValue;
+      this.isEmpty = false;
+    }
+  }
+
+  emptyText(){
+    this.search = null
+    this.isEmpty = true
   }
 
   confirmPerson(){
@@ -50,7 +69,7 @@ export class Person{
       this.isError = true;
       return this.errorList = list
     } else {
-      this.personService.people.push(this.person);
+      this.service.people.push(this.person);
       this.isAdding = false;
     }
   }
