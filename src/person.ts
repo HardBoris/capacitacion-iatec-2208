@@ -3,11 +3,12 @@ import {autoinject, observable} from "aurelia-framework"
 
 @autoinject
 export class Person{
+  public personMsg = "Personas"
 
   constructor(private service: PersonService){}
 
   isAdding = false;
-  @observable({changeHandle: "fillText"}) search = null
+  @observable search = null
   person;
   errorList;
   isError = false;

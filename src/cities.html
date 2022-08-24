@@ -1,32 +1,41 @@
 <template>
-  <div class="ui segment" style="display:flex; justify-content:space-between">
-    <div class="ui row">
-      <div class="eigth wide center aligned column">
-        <button class="ui blue button" click.delegate="onlyCapitals()">${isVisible ? "Todos" : "Capitais"}</button>
-      </div>
+  <div class="ui container">
+    <div class="ui segment" style="margin:0">
+      <h1 class="ui center aligned header">${cityMsg}</h1>
+      <a route-href="person">Person</a>
     </div>
-    <div class="ui form">
-      <div class="ui icon input">
-        <input type="text" placeholder="Filtrar" value.bind="name">
-        <i class="search icon"></i>
-      </div>
+    <div class="ui segment" style="display:flex; justify-content:space-between">
+      <!-- <div class="ui row"> -->
+        <!-- <div class="eigth wide center aligned column"> -->
+          <button class="ui blue button" click.delegate="onlyCapitals()">${isVisible ? "Todos" : "Capitais"}</button>
+        <!-- </div> -->
+      <!-- </div> -->
+      <!-- <div class="ui form eigth wide center aligned column"> -->
+        <div class="ui icon input ${!isEmpty ? 'rayado': ''}">
+          <input type="text" placeholder="Filtrar" value.bind="search" css="${!isEmpty ? 'border: none' : ''}">
+          <i class="search icon" show.bind="isEmpty"></i>
+          <button show.bind="!isEmpty" class="ui icon button" click.delegate="emptyText(search)" style="background:none">
+            <i class="close icon"></i>
+          </button>
+        </div>
+      <!-- </div> -->
     </div>
+    
+    <table class="ui celled striped table">
+      <thead>
+        <tr>
+          <th repeat.for="header of columnsHeader">
+            <p class="titulo">${header}</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr show.bind="(city.isCapital && isVisible) || !isVisible" repeat.for="city of citiesService.cityList | filtroCity:search">
+          <td  class="center aligned ${city.isCapital ? 'cap' : ''}">${city.name | upperCity}</td>
+          <td class="center aligned">${city.state}</td>
+          <td class="center aligned">${city.population}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
-  <table class="ui celled striped table">
-    <thead>
-      <tr>
-        <th repeat.for="header of columnsHeader">
-          <p class="titulo">${header}</p>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr show.bind="(city.isCapital && isVisible) || !isVisible" repeat.for="city of citiesService.cityList | filtroCity:name">
-        <td  class="center aligned ${city.isCapital ? 'cap' : ''}">${city.name | upperCity}</td>
-        <td class="center aligned">${city.state}</td>
-        <td class="center aligned">${city.population}</td>
-      </tr>
-    </tbody>
-  </table>
 </template>

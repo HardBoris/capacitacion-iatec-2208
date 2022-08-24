@@ -1,61 +1,65 @@
 <template>
-  <div if.bind="!isAdding" class="ui segment">
-    <div class="ui form">
-      <div class="ui icon input">
-        <input type="text" placeholder="Filtrar" value.bind="search" style="outline:none">
-        <i class="search icon" show.bind="isEmpty"></i>
-        <button show.bind="!isEmpty" class="ui icon button" click.delegate="emptyText(search)" style="background:none">
-          <i class="close icon"  ></i>
+  <div class="ui container">
+    <div class="ui segment" style="margin:0">
+      <h1 class="ui center aligned header">${personMsg}</h1>
+      <a route-href="city">City</a>
+    </div>
+    <div if.bind="!isAdding" class="ui segment">
+        <div class="ui icon input ${!isEmpty ? 'rayado': ''}">
+          <input type="text" placeholder="Filtrar" value.bind="search" css="${!isEmpty ? 'border: none' : ''}">
+          <i class="search icon" show.bind="isEmpty"></i>
+          <button show.bind="!isEmpty" class="ui icon button" click.delegate="emptyText(search)" style="background:none">
+            <i class="close icon"  ></i>
+          </button>
+        </div>
+    </div>
+    
+    <div class="ui grid container">
+      <div if.bind="!isAdding" repeat.for="person of service.people | filtroPerson:search" class="ui row segment" style="margin: 0; justify-content: space-evenly">
+        <div class="three wide column">${person.name | upperPerson}</div>
+        <div class="three wide column">${person.city}</div>
+        <div class="three wide column">${person.age}</div>
+        <div class="three wide column">${person.maritalStatus}</div>
+        <button class="ui icon button" click.delegate="removePerson(person)">
+          <i class="trash alternate outline icon"></i>
         </button>
+      </div>
+      <div if.bind="!isAdding" class="ui row segment" style="margin: 0">
+        <div class="eigth wide center aligned column">
+          <button class="ui green button" click.delegate="addPerson()">
+            Adicionar
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="ui grid container">
-    <div if.bind="!isAdding" repeat.for="person of service.people | filtroPerson:search" class="ui row segment" style="margin: 0; justify-content: space-evenly">
-      <div class="three wide column">${person.name | upperPerson}</div>
-      <div class="three wide column">${person.city}</div>
-      <div class="three wide column">${person.age}</div>
-      <div class="three wide column">${person.maritalStatus}</div>
-      <button class="ui icon button" click.delegate="removePerson(person)">
-        <i class="trash alternate outline icon"></i>
-      </button>
-    </div>
-    <div if.bind="!isAdding" class="ui row segment" style="margin: 0">
-      <div class="eigth wide center aligned column">
-        <button class="ui green button" click.delegate="addPerson()">
-          Adicionar
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <div if.bind="isAdding" class="ui segment">
-    <div class="ui form" style="display:flex; flex-direction:column; align-items:center;">
-      <div class="six wide ${isError && !person.name ? 'error' : ''} field">
-        <label>${isError && errorList.includes("name") ? "O campo Nome é obrigatório" : "Nome"}</label>
-        <input type="text" value.bind="person.name">
-      </div>
-      <div class="six wide ${isError && !person.city ? 'error' : ''} field">
-        <label>${isError && errorList.includes("city") ? "O campo Cidade é obrigatório" : "Cidade"}</label>
-        <input type="text" value.bind="person.city">
-      </div>
-      <div class="six wide ${isError && !person.age ? 'error' : ''} field">
-        <label>${isError && errorList.includes("age") ? "O campo Idade é obrigatório" : "Idade"}</label>
-        <input type="text" value.bind="person.age">
-      </div>
-      <div class="six wide ${isError && !person.maritalStatus ? 'error' : ''} field">
-        <label>${isError && errorList.includes("maritalStatus") ? "O campo Estado Civil é obrigatório" : "Estado Civil"}</label>
-        <input type="text" value.bind="person.maritalStatus">
-      </div>
-      <div class="eigth wide column">
-        <button class="ui button" click.delegate="voltar()"><i class="arrow left icon"></i></button>
-        <button class="ui yellow button" click.delegate="cancel()" style="color: green">
-          Cancelar
-        </button>
-        <button class="ui green button" click.delegate="confirmPerson()" style="color: yellow">
-          Salvar
-        </button>
+    
+    <div if.bind="isAdding" class="ui segment">
+      <div class="ui form" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="six wide ${isError && !person.name ? 'error' : ''} field">
+          <label>${isError && errorList.includes("name") ? "O campo Nome é obrigatório" : "Nome"}</label>
+          <input type="text" value.bind="person.name">
+        </div>
+        <div class="six wide ${isError && !person.city ? 'error' : ''} field">
+          <label>${isError && errorList.includes("city") ? "O campo Cidade é obrigatório" : "Cidade"}</label>
+          <input type="text" value.bind="person.city">
+        </div>
+        <div class="six wide ${isError && !person.age ? 'error' : ''} field">
+          <label>${isError && errorList.includes("age") ? "O campo Idade é obrigatório" : "Idade"}</label>
+          <input type="text" value.bind="person.age">
+        </div>
+        <div class="six wide ${isError && !person.maritalStatus ? 'error' : ''} field">
+          <label>${isError && errorList.includes("maritalStatus") ? "O campo Estado Civil é obrigatório" : "Estado Civil"}</label>
+          <input type="text" value.bind="person.maritalStatus">
+        </div>
+        <div class="eigth wide column">
+          <button class="ui button" click.delegate="voltar()"><i class="arrow left icon"></i></button>
+          <button class="ui yellow button" click.delegate="cancel()" style="color: green">
+            Cancelar
+          </button>
+          <button class="ui green button" click.delegate="confirmPerson()" style="color: yellow">
+            Salvar
+          </button>
+        </div>
       </div>
     </div>
   </div>

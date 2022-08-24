@@ -1,16 +1,35 @@
 import { CitiesService, CityType } from './cities-service';
-import {bindable, inject} from "aurelia-framework"
+import {bindable, inject, observable} from "aurelia-framework"
 
 @inject(CitiesService)
 export class Cities{
+  public cityMsg = "Municipios Brasileiros";
+
   constructor(private citiesService: CitiesService ){}
 
   city: CityType;
   @bindable isVisible = false;
+
+  @observable search = null
+  isError = false;
+  isEmpty = true;
+
   columnsHeader = ["Municipios","Unidade Federativa","População"]
 
   onlyCapitals(){
     this.isVisible = !this.isVisible;
+  }
+
+  searchChanged(newValue){
+    if (newValue) {
+      this.search = newValue;
+      this.isEmpty = false;
+    }
+  }
+
+  emptyText(){
+    this.search = null
+    this.isEmpty = true
   }
 
 }
