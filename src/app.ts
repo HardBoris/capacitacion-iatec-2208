@@ -26,13 +26,13 @@ export class App {
         nav: true,
         title: "Prueba"
       },
-      {
+      /* {
         route: "bginput",
         name: "bginput",
         moduleId: PLATFORM.moduleName("./bginput"),
         nav: true,
         title: "Bginput"
-      }
+      } */
     ])
     this.router = router;
   }

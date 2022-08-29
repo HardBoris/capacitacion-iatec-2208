@@ -1,5 +1,4 @@
 <template>
-  <require from="./bginput"></require>
   <div class="ui segment" style="margin:0">
     <h1 class="ui center aligned header">${personMsg}</h1>
     <a route-href="city">City</a>
@@ -24,7 +23,6 @@
       </select>
     </div>
   </div>
-  <bginput hint="24 anos depois" label="cargo" campo.bind="variable"></bginput>
   Selected city: ${selectedCity.name}
   ${variable}
 </template>
