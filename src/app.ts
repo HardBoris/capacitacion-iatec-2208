@@ -6,7 +6,7 @@ export class App {
     config.title = 'Capacitação Aurelia';
     config.map([
       {
-        route: "city",
+        route: ["","city"],
         name: "city",
         moduleId: PLATFORM.moduleName("./cities"),
         nav: true,
@@ -18,10 +18,23 @@ export class App {
         moduleId: PLATFORM.moduleName("./person"),
         nav: true,
         title: "Person"
+      },
+      {
+        route: "prueba",
+        name: "prueba",
+        moduleId: PLATFORM.moduleName("./prueba"),
+        nav: true,
+        title: "Prueba"
+      },
+      {
+        route: "bginput",
+        name: "bginput",
+        moduleId: PLATFORM.moduleName("./bginput"),
+        nav: true,
+        title: "Bginput"
       }
     ])
     this.router = router;
-    console.log(this.router)
   }
   
   

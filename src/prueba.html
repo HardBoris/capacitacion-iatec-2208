@@ -1,0 +1,30 @@
+<template>
+  <require from="./bginput"></require>
+  <div class="ui segment" style="margin:0">
+    <h1 class="ui center aligned header">${personMsg}</h1>
+    <a route-href="city">City</a>
+    <a route-href="person">Person</a>
+    <a route-href="bginput">BGInput</a>
+  </div>
+  <div class="ui segment">
+    <div>
+      <label>
+        Select city:
+      </label>
+    </div>
+    <div>
+      <select class="ui search dropdown" value.bind="selectedCity">
+        <option model.bind="null">
+          Elige una ciudad
+        </option>
+        <option repeat.for="cidade of array.cityList"
+                model.bind="cidade">
+                ${cidade.name}
+        </option>
+      </select>
+    </div>
+  </div>
+  <bginput hint="24 anos depois" label="cargo" campo.bind="variable"></bginput>
+  Selected city: ${selectedCity.name}
+  ${variable}
+</template>

@@ -1,17 +1,13 @@
 <template>
+  <require from="./resources/components/search/search"></require>
   <div class="ui container">
     <div class="ui segment" style="margin:0">
       <h1 class="ui center aligned header">${personMsg}</h1>
       <a route-href="city">City</a>
+      <a route-href="prueba">Prueba</a>
     </div>
     <div if.bind="!isAdding" class="ui segment">
-        <div class="ui icon input ${!isEmpty ? 'rayado': ''}">
-          <input type="text" placeholder="Filtrar" value.bind="search" css="${!isEmpty ? 'border: none' : ''}">
-          <i class="search icon" show.bind="isEmpty"></i>
-          <button show.bind="!isEmpty" class="ui icon button" click.delegate="emptyText(search)" style="background:none">
-            <i class="close icon"  ></i>
-          </button>
-        </div>
+      <search hint="Filtrar..." field_search.bind="search"></search>
     </div>
     
     <div class="ui grid container">
